@@ -67,9 +67,9 @@ This creates the CSS for every Pygments theme that you configure in the
 
 Now just install the snippet gem and you're good to go:
 
-   $ export GEM_HOME=/home/you/.gem
-   $ PATH=$PATH:/home/you/.gem/bin
-   $ gem install snipper
+    $ export GEM_HOME=/home/you/.gem
+    $ PATH=$PATH:/home/you/.gem/bin
+    $ gem install snipper
 
 
 Basic Usage?
@@ -105,9 +105,9 @@ Editing a snippet
 Editing snippets is done using your text editor of choice, vim unless you set
 EDITOR in your shell.
 
-   $ snipper e 124
-   # edit your files
-   http://baseurl/124
+    $ snipper e 124
+    # edit your files
+    http://baseurl/124
 
 When you edit it will simply pass the list of files to edit in a row to your
 editor, edit, save move to the next one will your done or quit your editor mid
@@ -118,10 +118,10 @@ If you zero a file that file will be removed from the snippet.
 Snippets can have some meta data associated with them, you'll notice when you
 open one there might be a few header lines like:
 
-   ## description: foo
-   ## lang: perl
+    ## description: foo
+    ## lang: perl
 
-   snippet here
+    snippet here
 
 You can tweak descriptions, languages etc there.  There's a pastie.org inspired
 shortcut for descriptions:
@@ -137,9 +137,9 @@ Deleting a snippet
 
 Deleting is simple, this removes the source snippet and the static html
 
-   $ snipper d 124
-   Removing /home/you/.snipper/snippets/124
-   Removing /where/your/site/lives/124
+    $ snipper d 124
+    Removing /home/you/.snipper/snippets/124
+    Removing /where/your/site/lives/124
 
 Searching for snippets
 ----------------------
@@ -147,17 +147,17 @@ Searching for snippets
 Searching is done by default with grep, you can configure that though, by
 default it will do grep colors and all that.
 
-   $ snipper s ruby
-   1/1-1-
-   1/1:2:require 'rubygems'
-   1/1-3-require 'uv'
-   1/1-4-require 'optparse'
-   --
-   3/2-50-                syntax = lexer.name
-   3/2-51-              else
-   3/2:52:                syntax = Config[:default_syntax] || "ruby"
-   3/2-53-              end
-   3/2-54-            end
+    $ snipper s ruby
+    1/1-1-
+    1/1:2:require 'rubygems'
+    1/1-3-require 'uv'
+    1/1-4-require 'optparse'
+    --
+    3/2-50-                syntax = lexer.name
+    3/2-51-              else
+    3/2:52:                syntax = Config[:default_syntax] || "ruby"
+    3/2-53-              end
+    3/2-54-            end
 
 The numbers is from grep but this basically means it found matches in snippets 1
 and 3.  In snippet 1 the match was in the 1st file and for snippet 3 it was in
@@ -168,24 +168,24 @@ Viewing snippets on the CLI
 
 You can view a snippet easily, this just cats them into your PAGER
 
-   $ snipper v 124
-   # less is run with your snippet visible
+    $ snipper v 124
+    # less is run with your snippet visible
 
 Seeing supported languages
 --------------------------
 
 You can see what Pygments support by just running:
 
-   $ snipper -L
-   Pygments version 1.4, (c) 2006-2008 by Georg Brandl.
+    $ snipper -L
+    Pygments version 1.4, (c) 2006-2008 by Georg Brandl.
 
-   Lexers:
-   ~~~~~~
-   * Cucumber, cucumber, Gherkin, gherkin:
-       Gherkin (filenames *.feature)
-   etc
-   etc
-   etc
+    Lexers:
+    ~~~~~~
+    * Cucumber, cucumber, Gherkin, gherkin:
+        Gherkin (filenames *.feature)
+    etc
+    etc
+    etc
 
 Contact?
 ========
