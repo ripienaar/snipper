@@ -146,7 +146,7 @@ class Snipper
 
       unless text.start_with?("##")
         snippet.puts "## description: %s" % [ @options[:description] ] if @options[:description]
-        snippet.puts "## syntax: %s" % [ @options[:syntax] ] if @options[:syntax]
+        snippet.puts "## lang: %s" % [ @options[:syntax] ] if @options[:syntax]
         snippet.puts
       end
 

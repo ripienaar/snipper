@@ -44,7 +44,7 @@ class Snipper
               f.puts text
             end
 
-            syntax = @snippet.options[:syntax]
+            syntax = headers["lang"]
 
             unless syntax
               lexer = Pygments::Lexer.find_by_extname(File.extname(file))
@@ -57,6 +57,7 @@ class Snipper
             end
 
             raise "Unknown syntax #{syntax}" unless self.class.list_langs.include?(syntax)
+
 
             html.puts "<H2>%s</H2>" % [ headers["description"] ] if headers["description"]
             html.puts Pygments.highlight(text, :lexer => syntax, :options => {:linenos => "table", :style => theme})
