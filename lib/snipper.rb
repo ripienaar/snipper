@@ -9,13 +9,12 @@ require 'snipper/command/edit'
 require 'snipper/command/delete'
 require 'snipper/command/search'
 require 'snipper/command/view'
+require 'snipper/version'
 require 'snipper/output/pygments_output.rb'
 require 'yaml'
 require 'fileutils'
 
 class Snipper
-  VERSION="0.0.1"
-
   def initialize
     config = File.join(Etc.getpwuid.dir, ".snipper", "config.yml")
 
