@@ -23,7 +23,7 @@ docroot as static files
 A simple *last 10 snippets* index page should be maintained showing last 10
 public snippets
 
-    .snipper
+    ~/.snipper
     └── snippets
         ├── 123
         │   ├── 1
@@ -50,10 +50,6 @@ CLI Concept
     cat test.pp|snipper 123
     http://baseurl/123
 
-    # add a private dir - a webroot that blocks search engines with robots.txt
-    cat test.pp|snipper -p
-    http://baseurl/private/124
-
     # edit a snippet, if its multiple files they will be
     # appended to the $EDITOR command line, empty file will
     # delete it from the snippet
@@ -61,7 +57,7 @@ CLI Concept
     http://baseurl/123
 
     # delete a whole snippet
-    snipper d 123
+    snipper rm 123
 
     # search through snippets using the command defined in grep
     # the example shows 2 snippets, the first is a multi file
@@ -80,6 +76,9 @@ CLI Concept
     # view a snippet
     snipper v 124
 
+    # list of supported languages
+    snipper -L
+
 Snippet Layout
 ==============
 
@@ -93,11 +92,12 @@ All the header fields are optional, the first blank line stops header parsing
 Config
 ======
 
+YAML file in ~/.snipper/config.yml
+
     ---
-    :default_theme: blackboard
     :public_target_dir: /some/dir
-    :default_language: puppet
-    :renderer: ultraviolet
-    :grep: grep -riHn -C 2 --include=\*snippet '%Q%' *
-    :baseurl: http://snipper.devco.net
-    :post_render_command: rsync --delete -r /some/dir user@mywebhost:/some/dir
+    :default_language: ruby
+    :grep: grep --color=auto -riHn -C 2 '%Q%' *
+    :baseurl: http://some.site/snipper
+    :theme: pastie
+    :dark_theme: false

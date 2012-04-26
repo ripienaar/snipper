@@ -1,0 +1,32 @@
+#!/usr/bin/ruby
+
+require 'snipper'
+
+@options = {:command     => "new"}
+
+OptionParser.new do |opts|
+  opts.on("--lang LANGUAGE", "-l", "Snippet Language") do |v|
+    @options[:syntax] = v
+  end
+
+  opts.on("-L","List Languages") do
+    @options[:list] = true
+  end
+end.parse!
+
+exec "pygmentize -L lexer" if @options[:list]
+
+@options[:command] = ARGV[0] if ARGV.size >= 1
+
+case @options[:command]
+  when "search", "s"
+    Snipper::Command::Search.new(@options)
+  when "delete", "d", "rm"
+    Snipper::Command::Delete.new(@options)
+  when "view", "v"
+    Snipper::Command::View.new(@options)
+  when "edit", "e"
+    puts Snipper::Command::Edit.new(@options).url
+  else
+    puts Snipper::Command::New.new(@options).url
+end
