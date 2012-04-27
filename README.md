@@ -57,7 +57,7 @@ you can just (ab)use their shared folder urls.
 Create the *public_target_dir* and do something like:
 
     $ mkdir /where/your/site/lives/css
-    $ for i in `pygmentize -L styles|grep ^\*|sed -e "s%(\\* |:)%%"`
+    $ for i in `pygmentize -L styles|grep '^\*'|sed -r "s%(\\* |:)%%g"`
       do
         pygmentize -S $i -f html > /where/your/site/lives/css/$i.css
       done
