@@ -27,9 +27,9 @@ class Snipper
           html.puts ".linenos { text-align: right; color: white; width: 30px; }"
 
           if Config[:dark_theme]
-            html.puts ".highlight { background-color: #0C1000 }"
+            html.puts ".highlight { background-color: #0C1000; color: white }"
           else
-            html.puts ".highlight { background-color: white }"
+            html.puts ".highlight { background-color: white; color: black }"
           end
 
           html.puts "</style>"
