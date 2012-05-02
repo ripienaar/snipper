@@ -1,32 +1,43 @@
 #!/usr/bin/ruby
 
+require 'rubygems'
 require 'snipper'
+require 'thor'
 
-@options = {:command     => "new"}
-
-OptionParser.new do |opts|
-  opts.on("--lang LANGUAGE", "-l", "Snippet Language") do |v|
-    @options[:syntax] = v
+class MyCLI<Thor
+  desc "add [FILE1..5]", "add a snippet"
+  option :syntax, :desc => "Language to use for the new snippet", :default => "ruby", :type => :string, :aliases => ["-l", "--lang", "-s"]
+  def add(file1=nil, file2=nil, file3=nil, file4=nil, file5=nil)
+    puts Snipper::Util.new([file1, file2, file3, file4, file5].compact, options[:syntax])
   end
 
-  opts.on("-L","List Languages") do
-    @options[:list] = true
+  desc "append [SNIPPET] [FILE1..5]", "appends a file to an existing snippet"
+  option :syntax, :desc => "Language to use for the new snippet", :default => "ruby", :type => :string, :aliases => ["-l", "--lang", "-s"]
+  def append(snippet, file1=nil, file2=nil, file3=nil, file4=nil, file5=nil)
+    puts Snipper::Util.append(snippet, [file1, file2, file3, file4, file5].compact, options[:syntax])
   end
-end.parse!
 
-exec "pygmentize -L lexer" if @options[:list]
+  desc "delete [SNIPPET]", "deletes an existing snippet"
+  def delete(snippet)
+    Snipper::Util.delete(snippet)
+  end
 
-@options[:command] = ARGV[0] if ARGV.size >= 1
+  desc "edit [SNIPPET]", "edits an existing snippet"
+  def edit(snippet)
+    puts Snipper::Util.edit(snippet)
+  end
 
-case @options[:command]
-  when "search", "s"
-    Snipper::Command::Search.new(@options)
-  when "delete", "d", "rm"
-    Snipper::Command::Delete.new(@options)
-  when "view", "v"
-    Snipper::Command::View.new(@options)
-  when "edit", "e"
-    puts Snipper::Command::Edit.new(@options).url
-  else
-    puts Snipper::Command::New.new(@options).url
+  desc "view [SNIPPET]", "views an existing snippet"
+  def view(snippet)
+    puts Snipper::Util.view(snippet)
+  end
+
+  desc "languages", "list known languages"
+  def languages
+    Snipper::Util.list_langs
+  end
+
+  default_task :add
 end
+
+MyCLI.start(ARGV)
