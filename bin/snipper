@@ -6,12 +6,34 @@ require 'thor'
 
 class MyCLI<Thor
   desc "add [FILE1..5]", "add a snippet"
+  long_desc <<-D
+  There are various ways to add a new snippet:
+
+  To add a number of PHP files to a single snippet:
+
+  $ snipper add file1 file2 file3 file4 file5 --lang=php
+
+  To create a new snippet with a file from STDIN:
+
+  $ cat files1 | snipper add --lang=php
+
+  There is also a shortcut for supplying files from STDIN:
+
+  $ cat file1 | snipper --lang=php
+  D
   option :syntax, :desc => "Language to use for the new snippet", :default => "ruby", :type => :string, :aliases => ["-l", "--lang", "-s"]
   def add(file1=nil, file2=nil, file3=nil, file4=nil, file5=nil)
     puts Snipper::Util.new([file1, file2, file3, file4, file5].compact, options[:syntax])
   end
 
   desc "append [SNIPPET] [FILE1..5]", "appends a file to an existing snippet"
+  long_desc <<-D
+  Appending works similar to adding except you must known an existing snippet number:
+
+  $ snipper append 123 file1 file2 file3 file4 file5 --lang=php
+
+  $ cat file1 | snipper append 123 --lang=php
+  D
   option :syntax, :desc => "Language to use for the new snippet", :default => "ruby", :type => :string, :aliases => ["-l", "--lang", "-s"]
   def append(snippet, file1=nil, file2=nil, file3=nil, file4=nil, file5=nil)
     puts Snipper::Util.append(snippet, [file1, file2, file3, file4, file5].compact, options[:syntax])

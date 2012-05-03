@@ -14,7 +14,13 @@ class Snipper
       snipper = Snipper.new
 
       if STDIN.tty?
-        abort "Please specify a filename or provide a snippet on STDIN" if snippet.empty?
+        if snippet.empty?
+          if ARGV.empty?
+            abort "When adding a snippet without providing any arguments a snippet has to be provided on STDIN, run 'snipper help add' for full details"
+          else
+            abort "Please specify a filename or provide a snippet on STDIN"
+          end
+        end
 
         txt = snippet
       else
