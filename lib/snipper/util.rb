@@ -10,7 +10,7 @@ class Snipper
       snip.delete!
     end
 
-    def self.new(snippet, syntax)
+    def self.new(snippet, syntax, description)
       snipper = Snipper.new
 
       if STDIN.tty?
@@ -27,11 +27,11 @@ class Snipper
         txt = STDIN.read
       end
 
-      snip = Snippet.new(txt, {:syntax => syntax})
+      snip = Snippet.new(txt, {:syntax => syntax, :description => description})
       snip.url_for_snippet
     end
 
-    def self.append(snippet_id, snippet, syntax)
+    def self.append(snippet_id, snippet, syntax, description)
       snipper = Snipper.new
 
       if STDIN.tty?
@@ -42,7 +42,7 @@ class Snipper
         txt = STDIN.read
       end
 
-      snip = Snippet.new(txt, {:syntax => syntax, :snippet => snippet_id})
+      snip = Snippet.new(txt, {:syntax => syntax, :snippet => snippet_id, :description => description})
       snip.url_for_snippet
     end
 

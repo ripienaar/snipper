@@ -15,15 +15,16 @@ class MyCLI<Thor
 
   To create a new snippet with a file from STDIN:
 
-  $ cat files1 | snipper add --lang=php
+  $ cat files1 | snipper add
 
   There is also a shortcut for supplying files from STDIN:
 
-  $ cat file1 | snipper --lang=php
+  $ cat file1 | snipper
   D
   option :syntax, :desc => "Language to use for the new snippet", :default => "ruby", :type => :string, :aliases => ["-l", "--lang", "-s"]
+  option :description, :desc => "Textual description for this snippet", :default => nil, :type => :string, :aliases => ["-d"]
   def add(file1=nil, file2=nil, file3=nil, file4=nil, file5=nil)
-    puts Snipper::Util.new([file1, file2, file3, file4, file5].compact, options[:syntax])
+    puts Snipper::Util.new([file1, file2, file3, file4, file5].compact, options["syntax"], options["description"])
   end
 
   desc "append [SNIPPET] [FILE1..5]", "appends a file to an existing snippet"
@@ -32,11 +33,12 @@ class MyCLI<Thor
 
   $ snipper append 123 file1 file2 file3 file4 file5 --lang=php
 
-  $ cat file1 | snipper append 123 --lang=php
+  $ cat file1 | snipper append 123
   D
   option :syntax, :desc => "Language to use for the new snippet", :default => "ruby", :type => :string, :aliases => ["-l", "--lang", "-s"]
+  option :description, :desc => "Textual description for this snippet", :default => nil, :type => :string, :aliases => ["-d"]
   def append(snippet, file1=nil, file2=nil, file3=nil, file4=nil, file5=nil)
-    puts Snipper::Util.append(snippet, [file1, file2, file3, file4, file5].compact, options[:syntax])
+    puts Snipper::Util.append(snippet, [file1, file2, file3, file4, file5].compact, options["syntax"], options["description"])
   end
 
   desc "delete [SNIPPET]", "deletes an existing snippet"
