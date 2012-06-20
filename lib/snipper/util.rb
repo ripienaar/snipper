@@ -10,6 +10,15 @@ class Snipper
       snip.delete!
     end
 
+    def self.search(string)
+      snipper = Snipper.new
+
+      Dir.chdir(Config[:snippets_dir]) do
+        abort "Refusing to search for strings with ` in them" if string.match("'")
+        system(Config[:grep].gsub("%Q%", string))
+      end
+    end
+
     def self.new(snippet, syntax, description)
       snipper = Snipper.new
 

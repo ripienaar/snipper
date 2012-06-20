@@ -56,6 +56,11 @@ class MyCLI<Thor
     puts Snipper::Util.view(snippet)
   end
 
+  desc "search [STRING]", "Search snippets"
+  def search(string)
+    Snipper::Util.search(string)
+  end
+
   desc "languages", "list known languages"
   def languages
     Snipper::Util.list_langs
