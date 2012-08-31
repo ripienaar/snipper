@@ -40,6 +40,11 @@ class Snipper
       snip.url_for_snippet
     end
 
+    def self.capture(command, syntax, description)
+      snipper = Snipper.new
+      Snippet.new(%x{#{command}}, {:syntax => syntax, :description => description}).url_for_snippet
+    end
+
     def self.append(snippet_id, snippet, syntax, description)
       snipper = Snipper.new
 

@@ -41,6 +41,29 @@ class MyCLI<Thor
     puts Snipper::Util.append(snippet, [file1, file2, file3, file4, file5].compact, options["syntax"], options["description"])
   end
 
+  desc "capture", "Captures the output of a command as a snippet"
+  long_desc <<-D
+  Captures the output of a unix command to a snippet
+
+  $ snipper append -l text -d 'some description' 'ls -l'
+
+  Alternatively you can if you do not supply a command you will receive a prompt
+
+  $ snipper append -l text -d 'some description'
+  command > ls -l
+  D
+  option :syntax, :desc => "Language to use for the new snippet", :default => "ruby", :type => :string, :aliases => ["-l", "--lang", "-s"]
+  option :description, :desc => "Textual description for this snippet", :default => nil, :type => :string, :aliases => ["-d"]
+  def capture(*command)
+    if command.empty?
+      require "readline"
+      line = Readline.readline('command> ', true)
+      puts Snipper::Util.capture(line, options["syntax"], options["description"])
+    else
+      puts Snipper::Util.capture(command.join(" "), options["syntax"], options["description"])
+    end
+  end
+
   desc "delete [SNIPPET]", "deletes an existing snippet"
   def delete(snippet)
     Snipper::Util.delete(snippet)
