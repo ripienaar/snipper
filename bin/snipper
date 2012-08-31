@@ -52,16 +52,20 @@ class MyCLI<Thor
   $ snipper append -l text -d 'some description'
   command > ls -l
   D
-  option :syntax, :desc => "Language to use for the new snippet", :default => "ruby", :type => :string, :aliases => ["-l", "--lang", "-s"]
+  option :syntax, :desc => "Language to use for the new snippet", :default => "text", :type => :string, :aliases => ["-l", "--lang", "-s"]
   option :description, :desc => "Textual description for this snippet", :default => nil, :type => :string, :aliases => ["-d"]
   def capture(*command)
     if command.empty?
       require "readline"
-      line = Readline.readline('command> ', true)
-      puts Snipper::Util.capture(line, options["syntax"], options["description"])
+      command = Readline.readline('command> ', true)
     else
-      puts Snipper::Util.capture(command.join(" "), options["syntax"], options["description"])
+      command = command.join(" ")
     end
+
+    abort "Please enter a command to capture" if command.size == 0
+
+    description = options.fetch("description", "captured output of: %s" % command)
+    puts Snipper::Util.capture(command, options["syntax"], options.fetch("description", command))
   end
 
   desc "delete [SNIPPET]", "deletes an existing snippet"
