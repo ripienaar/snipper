@@ -12,6 +12,8 @@ class Snipper
       def save
         theme = Config[:theme] || "default"
 
+        basecss = Config[:dark_theme] ? 'darkbg' : 'lightbg'
+
         raise "Please set the :public_target_dir setting" unless Config[:public_target_dir]
 
         path = @snippet.snippet_html_path
@@ -19,23 +21,19 @@ class Snipper
         FileUtils.mkdir_p(path)
 
         File.open(File.join(path, "index.html"), "w") do |html|
+          html.puts "<!DOCTYPE html>"
+          html.puts "<html>"
           html.puts "<head>"
           html.puts "<link rel='stylesheet' type='text/css' href='../css/#{theme}.css' media='all' />"
-          if Config[:dark_theme]
-              basecss = 'darkbg'
-          else
-              basecss = 'lightbg'
-          end
           html.puts "<link rel='stylesheet' type='text/css' href='../css/#{basecss}.css' media='all' />"
-
-          html.puts "</style>"
           html.puts "</head>"
+
           html.puts "<body>"
 
-          html.puts "<table class='content'>"
-          html.puts "<tr><td>"
 
           @snippet.each_file do |file, text, headers|
+            html.puts "<table class='content'>"
+            html.puts "<tr><td>"
             File.open(File.join(path, "#{File.basename(file)}.raw"), "w") do |f|
               f.puts text
             end
@@ -55,16 +53,24 @@ class Snipper
             raise "Unknown syntax #{syntax}" unless self.class.list_langs.include?(syntax)
 
 
-            html.puts "<H2>%s</H2>" % [ headers["description"] ] if headers["description"]
+            html.puts "<h3>%s</h3>" % [ headers["description"] ] if headers["description"]
             html.puts Pygments.highlight(text, :lexer => syntax, :options => {:linenos => "table", :style => theme})
-            html.puts "Syntax : %s - Download : <a class='button-link' href='%s.raw'>raw</a>" % [ syntax, File.basename(file) ]
-            html.puts "<br /><br />"
+            #html.puts "<br /><br />"
+
+            html.puts "</td></tr>"
+            html.puts "</table>"
+
+            html.puts "<div id='left'>"
+            html.puts "<a class='button-link' href='%s.raw'>raw</a> download - Syntax : %s " % [ File.basename(file), syntax ]
+            html.puts "</div>"
           end
 
-          html.puts "</td></tr>"
-          html.puts "<tr align='right'><td><a class='button-link' href='%s'>Snipper</a></td></tr>" % [ "http://github.com/ripienaar/snipper" ]
-          html.puts "</table>"
+          html.puts "<div id='right'>"
+          html.puts "<a class='button-link' href='%s'>Snipper</a>" % [ "http://github.com/ripienaar/snipper" ]
+          html.puts "</div>"
+
           html.puts "</body>"
+          html.puts "</html>"
         end
       end
     end
