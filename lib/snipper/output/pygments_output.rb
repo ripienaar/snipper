@@ -57,12 +57,12 @@ class Snipper
 
             html.puts "<H2>%s</H2>" % [ headers["description"] ] if headers["description"]
             html.puts Pygments.highlight(text, :lexer => syntax, :options => {:linenos => "table", :style => theme})
-            html.puts "<i>Syntax :</i> %s - <i>Download :</i> <a class='button-link' href='%s.raw'>raw</a>" % [ syntax, File.basename(file) ]
+            html.puts "Syntax : %s - Download : <a class='button-link' href='%s.raw'>raw</a>" % [ syntax, File.basename(file) ]
             html.puts "<br /><br />"
           end
 
           html.puts "</td></tr>"
-          html.puts "<tr align='right'><td><a href='%s'>Snipper</a></td></tr>" % [ "http://github.com/ripienaar/snipper" ]
+          html.puts "<tr align='right'><td><a class='button link' href='%s'>Snipper</a></td></tr>" % [ "http://github.com/ripienaar/snipper" ]
           html.puts "</table>"
           html.puts "</body>"
         end
