@@ -65,12 +65,17 @@ Create the *public_target_dir* and do something like:
 This creates the CSS for every Pygments theme that you configure in the
 *config.yml*
 
-Now just install the snippet gem and you're good to go:
+Now install the snippet gem :
 
     $ export GEM_HOME=/home/you/.gem
     $ PATH=$PATH:/home/you/.gem/bin
     $ gem install snipper
 
+Copy the additional css for the page background :
+
+    $ cp ~/.gem/gems/snipper-*/css/*.css /where/your/site/lives/css/
+
+And you're good to go.
 
 Basic Usage?
 ============
@@ -186,6 +191,15 @@ You can see what Pygments support by just running:
     etc
     etc
     etc
+
+Rebuild the gem
+===============
+
+In the root folder of the project :
+
+    rake gem
+
+You should find the gem in the subfolder *pkg*.
 
 Contact?
 ========
