@@ -21,16 +21,12 @@ class Snipper
         File.open(File.join(path, "index.html"), "w") do |html|
           html.puts "<head>"
           html.puts "<link rel='stylesheet' type='text/css' href='../css/#{theme}.css' media='all' />"
-          html.puts "<style type='text/css'>"
-          html.puts ".highlighttable { background-color: #253B76; width: 100%;}"
-          html.puts ".content { width: 100%;}"
-          html.puts ".linenos { text-align: right; color: white; width: 30px; }"
-
           if Config[:dark_theme]
-            html.puts ".highlight { background-color: #0C1000; color: white }"
+              basecss = 'darkbg'
           else
-            html.puts ".highlight { background-color: white; color: black }"
+              basecss = 'lightbg'
           end
+          html.puts "<link rel='stylesheet' type='text/css' href='../css/#{basecss}.css' media='all' />"
 
           html.puts "</style>"
           html.puts "</head>"
