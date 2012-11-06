@@ -62,7 +62,7 @@ class Snipper
           end
 
           html.puts "</td></tr>"
-          html.puts "<tr align='right'><td><a class='button link' href='%s'>Snipper</a></td></tr>" % [ "http://github.com/ripienaar/snipper" ]
+          html.puts "<tr align='right'><td><a class='button-link' href='%s'>Snipper</a></td></tr>" % [ "http://github.com/ripienaar/snipper" ]
           html.puts "</table>"
           html.puts "</body>"
         end
