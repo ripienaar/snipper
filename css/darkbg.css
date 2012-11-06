@@ -64,8 +64,8 @@ pre { background-color:#2b2b2b; }
     border: solid 1px #203E5F;
 }
 
-#right { float: right; margin-top: 3px; margin-right: 3px; margin-bottom:15px; }
+.right { float: right; margin-top: 3px; margin-right: 3px; margin-bottom:15px; }
 
-#left  { float: left;  margin-top: 3px; margin-left: 3px;  margin-bottom:15px; }
+.left  { float: left;  margin-top: 3px; margin-left: 3px;  margin-bottom:15px; }
 
 

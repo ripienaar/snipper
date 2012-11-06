@@ -24,16 +24,18 @@ class Snipper
           html.puts "<!DOCTYPE html>"
           html.puts "<html>"
           html.puts "<head>"
-          html.puts "<link rel='stylesheet' type='text/css' href='../css/#{theme}.css' media='all' />"
-          html.puts "<link rel='stylesheet' type='text/css' href='../css/#{basecss}.css' media='all' />"
+          html.puts '  <meta charset="UTF-8">'
+          html.puts "  <title>Snippets</title>"
+          html.puts "  <link rel='stylesheet' type='text/css' href='../css/#{theme}.css' media='all' />"
+          html.puts "  <link rel='stylesheet' type='text/css' href='../css/#{basecss}.css' media='all' />"
           html.puts "</head>"
 
           html.puts "<body>"
 
 
           @snippet.each_file do |file, text, headers|
-            html.puts "<table class='content'>"
-            html.puts "<tr><td>"
+            html.puts "  <table class='content'>"
+            html.puts "    <tr><td>"
             File.open(File.join(path, "#{File.basename(file)}.raw"), "w") do |f|
               f.puts text
             end
@@ -52,22 +54,22 @@ class Snipper
 
             raise "Unknown syntax #{syntax}" unless self.class.list_langs.include?(syntax)
 
+            html.puts
 
-            html.puts "<h3>%s</h3>" % [ headers["description"] ] if headers["description"]
+            html.puts "      <h3>%s</h3>" % [ headers["description"] ] if headers["description"]
             html.puts Pygments.highlight(text, :lexer => syntax, :options => {:linenos => "table", :style => theme})
-            #html.puts "<br /><br />"
 
-            html.puts "</td></tr>"
-            html.puts "</table>"
+            html.puts "    </td></tr>"
+            html.puts "  </table>"
 
-            html.puts "<div id='left'>"
-            html.puts "<a class='button-link' href='%s.raw'>raw</a> download - Syntax : %s " % [ File.basename(file), syntax ]
-            html.puts "</div>"
+            html.puts "  <div class='left'>"
+            html.puts "    <a class='button-link' href='%s.raw'>raw</a> download - Syntax : %s " % [ File.basename(file), syntax ]
+            html.puts "  </div>"
           end
 
-          html.puts "<div id='right'>"
-          html.puts "<a class='button-link' href='%s'>Snipper</a>" % [ "http://github.com/ripienaar/snipper" ]
-          html.puts "</div>"
+          html.puts "  <div class='right'>"
+          html.puts "    <a class='button-link' href='%s'>Snipper</a>" % [ "http://github.com/ripienaar/snipper" ]
+          html.puts "  </div>"
 
           html.puts "</body>"
           html.puts "</html>"
