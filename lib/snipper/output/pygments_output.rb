@@ -57,7 +57,7 @@ class Snipper
 
             html.puts "<H2>%s</H2>" % [ headers["description"] ] if headers["description"]
             html.puts Pygments.highlight(text, :lexer => syntax, :options => {:linenos => "table", :style => theme})
-            html.puts "syntax: %s download: <a href='%s.raw'>raw</a>" % [ syntax, File.basename(file) ]
+            html.puts "<i>Syntax :</i> %s - <i>Download :</i> <a class='button-link' href='%s.raw'>raw</a>" % [ syntax, File.basename(file) ]
             html.puts "<br /><br />"
           end
 
