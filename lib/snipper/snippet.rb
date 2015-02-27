@@ -133,11 +133,13 @@ class Snipper
     end
 
     def next_file_id
+      return 1 unless files.any?
       Integer(files[-1]) + 1
     end
 
     def next_snippet_id
       snippets = Dir.entries(Config[:snippets_dir]).grep(/^\d+$/)
+      return 1 unless snippets.any?
       Integer(snippets.map{|s| s.to_i}.sort.max) + 1
     end
 
